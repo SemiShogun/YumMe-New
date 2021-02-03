@@ -13,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import ch.zli.yumme.R;
-import ch.zli.yumme.models.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private User user;
     private FirebaseAuth mAuth;
-    private EditText email;
-    private EditText password;
+    private EditText etEmail;
+    private EditText etPassword;
     private Button login;
     private Button register;
 
@@ -30,50 +28,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        user = new User("", "");
-
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        etEmail = findViewById(R.id.email);
+        etPassword = findViewById(R.id.password);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
-
-        email.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (email.length() > 0) {
-                    user.setEmail(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (password.length() > 0) {
-                    user.setPassword(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         login.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -83,11 +41,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                System.out.println(etEmail.getText().toString());
+                System.out.println(etPassword.getText().toString());
+                mAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 System.out.println("Logged in");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             } else {
                                 System.out.println("Error");
