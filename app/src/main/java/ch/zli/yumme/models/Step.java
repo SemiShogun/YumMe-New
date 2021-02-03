@@ -1,7 +1,13 @@
 package ch.zli.yumme.models;
 
-public class Step {
+import java.io.Serializable;
+
+public class Step implements Serializable {
     private String instruction;
+
+    public Step() {
+
+    }
 
     public Step(String instruction) {
         this.instruction = instruction;
