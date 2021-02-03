@@ -5,6 +5,7 @@ import java.util.List;
 public class Recipe {
     private String name;
     private String description;
+    private String image;
     private int time;
     private int calories;
     private List<Ingredient> ingredients;
@@ -15,9 +16,10 @@ public class Recipe {
 
     }
 
-    public Recipe(String name, String description, int time, int calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
+    public Recipe(String name, String description, String image, int time, int calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
         this.name = name;
         this.description = description;
+        this.image = image;
         this.time = time;
         this.calories = calories;
         this.ingredients = ingredients;
@@ -39,6 +41,14 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getTime() {
