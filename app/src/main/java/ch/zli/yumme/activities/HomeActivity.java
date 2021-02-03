@@ -79,8 +79,7 @@ public class HomeActivity extends AppCompatActivity {
             // Failed to load user information
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Error loading data", Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), "Error loading data", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -105,19 +104,20 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("Hello");
                 switch (item.getItemId()) {
                     case R.id.home:
-                        Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(HomeActivity.this, HomeActivity.class);
+                        Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.add:
                         Toast.makeText(getApplicationContext(), "Add Recipe", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.marketplace:
-                        Toast.makeText(getApplicationContext(), "Add Recipe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Marketplace", Toast.LENGTH_SHORT).show();
                         intent = new Intent(getApplicationContext(), MarketplaceActivity.class);
                         startActivity(intent);
                         break;
                     default:
+                        Toast.makeText(getApplicationContext(), "Wait what did you press lol", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
