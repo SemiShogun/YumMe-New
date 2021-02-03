@@ -3,9 +3,10 @@ package ch.zli.yumme.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,12 +27,10 @@ import java.util.Objects;
 
 import ch.zli.yumme.R;
 import ch.zli.yumme.models.User;
-import ch.zli.yumme.utilities.ImageLoadTask;
 
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private ImageLoadTask imageLoadTask;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private FirebaseAuth mFirebaseAuth;
@@ -48,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
+        setNavigationView();
 
         tvUsername = findViewById(R.id.username);
         tvFollowing = findViewById(R.id.following);
@@ -85,11 +84,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        setNavigationView();
 
     }
 
-    private void setNavigationView() {
+    public void setNavigationView() {
+
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_home);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.Open, R.string.Close);
 
@@ -102,21 +101,30 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
+                Intent intent;
+                System.out.println("Hello");
+                switch (item.getItemId()) {
                     case R.id.home:
-                        Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT);
+                        Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(HomeActivity.this, HomeActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.add:
-                        Toast.makeText(HomeActivity.this, "Add Recipe", Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), "Add Recipe", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.marketplace:
+                        Toast.makeText(getApplicationContext(), "Add Recipe", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), MarketplaceActivity.class);
+                        startActivity(intent);
                         break;
                     default:
-                        return true;
+                        break;
                 }
-
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
+
     }
 
     @Override
@@ -127,4 +135,5 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
