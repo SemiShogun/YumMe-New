@@ -1,14 +1,15 @@
 package ch.zli.yumme.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
     private String id;
     private String name;
     private String description;
     private String image;
-    private int time;
-    private int calories;
+    private Integer time;
+    private Integer calories;
     private List<Ingredient> ingredients;
     private List<Step> steps;
     private String publisher;
@@ -17,7 +18,7 @@ public class Recipe {
 
     }
 
-    public Recipe(String id, String name, String description, String image, int time, int calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
+    public Recipe(String id, String name, String description, String image, Integer time, Integer calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,19 +62,19 @@ public class Recipe {
         this.image = image;
     }
 
-    public int getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
-    public int getCalories() {
+    public Integer getCalories() {
         return calories;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
     }
 
