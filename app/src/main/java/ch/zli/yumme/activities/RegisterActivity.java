@@ -17,10 +17,9 @@ import ch.zli.yumme.models.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private User user;
     private FirebaseAuth mAuth;
-    private EditText email;
-    private EditText password;
+    private EditText etEmail;
+    private EditText etPassword;
     private Button register;
     private Button back;
 
@@ -30,50 +29,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
 
-        user = new User("", "");
-
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        etEmail = findViewById(R.id.email);
+        etPassword = findViewById(R.id.password);
         register = findViewById(R.id.create);
         back = findViewById(R.id.back);
-
-        email.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (email.length() > 0) {
-                    user.setEmail(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (password.length() > 0) {
-                    user.setPassword(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         register.setOnClickListener(this);
         back.setOnClickListener(this);
@@ -83,12 +42,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.register:
-                mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+            case R.id.create:
+                mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 System.out.println("Registered");
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             } else {
                                 System.out.println("Error");
