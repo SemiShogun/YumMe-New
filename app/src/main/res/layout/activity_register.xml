@@ -34,12 +34,6 @@
             android:textSize="40sp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
@@ -47,7 +41,7 @@
             android:text="E-Mail" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/regEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -63,23 +57,7 @@
             android:text="Password" />
 
         <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@color/white"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:padding="5dp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username" />
-
-        <EditText
-            android:id="@+id/displayname"
+            android:id="@+id/regPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

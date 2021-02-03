@@ -4,16 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 
 import ch.zli.yumme.R;
-import ch.zli.yumme.models.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,33 +28,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
 
-        etEmail = findViewById(R.id.email);
-        etPassword = findViewById(R.id.password);
+        etEmail = findViewById(R.id.regEmail);
+        etPassword = findViewById(R.id.regPassword);
         register = findViewById(R.id.create);
         back = findViewById(R.id.back);
 
         register.setOnClickListener(this);
         back.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.create:
-                mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                System.out.println("Registered");
-                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                            } else {
-                                System.out.println("Error");
-                            }
-                        });
+                if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {
+                    mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    System.out.println("Registered");
+                                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    FirebaseAuthException e = (FirebaseAuthException ) task.getException();
+                                    Toast.makeText(RegisterActivity.this, "Failed Registration: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Email and password can't be empty", Toast.LENGTH_SHORT).show();
+                }
+
             case R.id.back:
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+            default:
+                break;
         }
     }
 }
