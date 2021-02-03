@@ -3,6 +3,7 @@ package ch.zli.yumme.models;
 import java.util.List;
 
 public class Recipe {
+    private String id;
     private String name;
     private String description;
     private String image;
@@ -16,7 +17,8 @@ public class Recipe {
 
     }
 
-    public Recipe(String name, String description, String image, int time, int calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
+    public Recipe(String id, String name, String description, String image, int time, int calories, List<Ingredient> ingredients, List<Step> steps, String publisher) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
@@ -25,6 +27,14 @@ public class Recipe {
         this.ingredients = ingredients;
         this.steps = steps;
         this.publisher = publisher;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -89,5 +99,10 @@ public class Recipe {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    @Override
+    public String toString() {
+        return name + "\n" + description;
     }
 }
